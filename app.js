@@ -11,7 +11,8 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res){
-    res.render('main',{temperature:null, humidity:null, windSpeed:null, weatherCondition:null,error:null,cityname:null,ImageURL:null,airPressure:null,feelsLike:null,Sunrise:null,Sunset:null})
+    res.render('main',{temperature:null, humidity:null, windSpeed:null, weatherCondition:null,tempMax:null,
+    tempMin:null,error:null,cityname:null,ImageURL:null,airPressure:null,feelsLike:null,Sunrise:null,Sunset:null})
 });
 
 app.post('/', function(req, res){
@@ -26,7 +27,8 @@ app.post('/', function(req, res){
             res.render('main', { error: 'City not found or API request failed.',cityname:city+" not found",temperature:'-',humidity: '-',
             windSpeed: '-',
             weatherCondition: '-',
-            
+            tempMax:'max',
+            tempMin:'min',
             ImageURL: '-',
             airPressure: '-',
             feelsLike: '-',
@@ -38,7 +40,8 @@ app.post('/', function(req, res){
                 const temp = Math.round(weatherData.main.temp);
                 
                 const humid = weatherData.main.humidity;
-                
+                const tempMax = Math.round(weatherData.main.temp_max);
+                const tempMin = Math.round(weatherData.main.temp_min);
                 const wind = weatherData.wind.speed;
                 const weatherDescription = weatherData.weather[0].description;
                 const feelsLike = Math.round(weatherData.main.feels_like);
@@ -76,6 +79,8 @@ function convertTo12HourFormat(unixTimestamp) {
                     weatherCondition: weatherDescription,
                     cityname: capitalizedCity,
                     ImageURL: ImageURL,
+                    tempMax:tempMax,
+                    tempMin:tempMin,
                     airPressure: airPress,
                     feelsLike: feelsLike,
                     Sunrise: sunriseTime,
@@ -87,7 +92,8 @@ function convertTo12HourFormat(unixTimestamp) {
                 res.render('main', { error: 'City not found or API request failed.',cityname:city+" not found",temperature:'-',humidity: '-',
                 windSpeed: '-',
                 weatherCondition: '-',
-                
+                tempMax:'max',
+                    tempMin:'min',
                 ImageURL: '-',
                 airPressure: '-',
                 feelsLike: '-',
