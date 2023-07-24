@@ -10,10 +10,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
-
-
 app.get('/', function(req, res){
-    res.render('main',{temperature:null, humidity:null, windSpeed:null, weatherCondition:null,error:null,cityname:null,ImageURL:null})
+    res.render('main',{temperature:null, humidity:null, windSpeed:null, weatherCondition:null,error:null,cityname:null,ImageURL:null,airPressure:null,feelsLike:null})
 });
 
 app.post('/', function(req, res){
@@ -29,10 +27,12 @@ app.post('/', function(req, res){
                 
                 const wind = weatherData.wind.speed;
                 const weatherDescription = weatherData.weather[0].description;
-                
+                const feelsLike = weatherData.main.feels_like;
+                const airPress = weatherData.main.pressure;
+
                 const icon =weatherData.weather[0].icon;
                 const ImageURL = "https://openweathermap.org/img/wn/"+icon+"@2x.png"
-                res.render('main',{temperature:temp, humidity:humid, windSpeed:wind, weatherCondition:weatherDescription, cityname:city, ImageURL:ImageURL})
+                res.render('main',{temperature:temp, humidity:humid, windSpeed:wind, weatherCondition:weatherDescription, cityname:city, ImageURL:ImageURL, airPressure:airPress,feelsLike:feelsLike})
         
 });
 });

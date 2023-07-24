@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
+
     <div class="main-container">
         <div class="navigation">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -24,6 +26,9 @@
               <li class="nav-item">
                 <p class="nav-link" ><%= cityname %></p>
               </li>
+              <!-- <li class="nav-item">
+                <p class="nav-link" ><%= cityname %></p>
+              </li> -->
             </ul>
             <form class="d-flex" role="search" action="/" method="post">
               <input class="form-control me-2" type="text"  name="cityName" id="">
@@ -33,28 +38,30 @@
         </div>
     </nav>
 </div>
-<div class="container">
-  <div class="item cowboy">
-    <img src="<%=ImageURL%>">
-    <p><%= weatherCondition %></p>
+<% if (temperature) { %>
+<div class="grid-container">
   
+  <div class="left-panel">
+      <!-- Content for the left panel -->
+      <h1><%= cityname %></h1>
+      <h2><%=temperature%>&deg;C</h2>
+      <p><%= weatherCondition %><img src="<%= ImageURL %>"></p>
   </div>
-  <div class="item astronaut">
-    
-    <p><%= windSpeed %>km/hr</p>
-
-  </div>
-  <div class="item book">
-
-    <p><%= temperature %>&deg;C</p>
-
-  </div>
-  <div class="item boy">
-
-    <p><%= humidity %> %</p>
-
+  <div class="right-panel">
+      <!-- Content for the right panel -->
+      <h2>Weather Details</h2>
+      <div class="pre-text">
+      <pre>Feels Like          <%= feelsLike %>&deg;C</pre> 
+      <pre>Humidity            <%= humidity %>%</pre>
+      <pre>Wind                <%= windSpeed %>KM/Hr</pre>
+      <pre>Air Pressure        <%= airPressure %>hPa</pre>
+      </div>
   </div>
 </div>
- </div>   
+<% } else { %>
+  <!-- Display a message when weather data is not available -->
+  <p>No weather data available for the city <%= cityname %></p>
+<% } %>
+    </div>
 </body>
 </html>
