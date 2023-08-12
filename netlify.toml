@@ -1,0 +1,6 @@
+[build]
+  publish = "public"  # Directory that contains your static assets (CSS, JS, images, etc.)
+  command = "npm run build"  # The command to build your project
+
+[build.environment]
+  NODE_VERSION = "18.16.1"  # Replace with your preferred Node.js version
